@@ -67,6 +67,7 @@ class UsageView(tables.DataTableView):
         types = [("totalInstancesUsed", "maxTotalInstances", _("Instances")),
                  ("totalCoresUsed", "maxTotalCores", _("VCPUs")),
                  ("totalRAMUsed", "maxTotalRAMSize", _("RAM")),
+                 ("totalRoutersUsed", "maxRouters", _("Routers")),
                  ("totalFloatingIpsUsed", "maxTotalFloatingIps",
                   _("Floating IPs"), _("Allocated")),
                  ("totalSecurityGroupsUsed", "maxSecurityGroups",

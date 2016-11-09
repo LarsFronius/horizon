@@ -114,6 +114,11 @@ class BaseUsage(object):
                 'api': api.network.security_group_list,
                 'limit_name': 'totalSecurityGroupsUsed',
                 'message': _('Unable to retrieve security groups.')
+            },
+            'routers': {
+                'api': api.neutron.router_list,
+                'limit_name': 'totalRoutersUsed',
+                'message': _('Unable to retrieve routers.')
             }
         }
 
@@ -132,6 +137,7 @@ class BaseUsage(object):
         limit_name_map = {
             'floatingip': 'maxTotalFloatingIps',
             'security_group': 'maxSecurityGroups',
+            'router': 'maxRouters'
         }
         if neutron_quotas is None:
             resource_max = float("inf")
@@ -156,6 +162,7 @@ class BaseUsage(object):
                 self._get_neutron_usage(self.limits, 'floatingip')
             if neutron_sg_used:
                 self._get_neutron_usage(self.limits, 'security_group')
+            self._get_neutron_usage(self.limits, 'routers')
             # Quotas are an optional extension in Neutron. If it isn't
             # enabled, assume the floating IP limit is infinite.
             if neutron_quotas_supported:
@@ -175,6 +182,7 @@ class BaseUsage(object):
         if neutron_sg_used:
             self._set_neutron_limit(self.limits, neutron_quotas,
                                     'security_group')
+        self._set_neutron_limit(self.limits, neutron_quotas, 'router')
 
     def get_cinder_limits(self):
         """Get volume limits if cinder is enabled."""
